@@ -49,7 +49,6 @@ Provides:	libfox-devel = %version-%release
 Provides:	fox1.6-devel = %version-%release
 Provides:	libfox1.6-devel = %version-%release
 Conflicts:	fox1.4-devel
-Conflicts:	libfox1.4-devel
 Conflicts:	fox1.7-devel
 
 %description -n %{libname}-devel
