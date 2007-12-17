@@ -16,7 +16,6 @@ License:	LGPL
 Group:		Development/C++
 URL:		http://www.fox-toolkit.org
 Source: 	http://www.fox-toolkit.org/ftp/%{oname}-%{version}.tar.bz2
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires:	libmesaglu-devel
 BuildRequires:  libcups-devel
 BuildRequires:  libbzip2-devel
