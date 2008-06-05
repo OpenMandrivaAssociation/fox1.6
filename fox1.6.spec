@@ -1,25 +1,26 @@
-%define major		1.6
+%define major 1.6
+%define oname fox
+%define name %{oname}%{major}
+%define version 1.6.33
+%define release %mkrel 1
 
-%define oname		fox
-%define name %oname%major
-%define version 1.6.25
-%define release %mkrel 2
-
-%define libname		%mklibname %{oname} %{major}
-
+%define libname %mklibname %{oname} %{major}
 
 Summary:	The FOX C++ GUI Toolkit
 Name:		%{name}
-Version:	%{version}
-Release:	%{release}
-License:	LGPL
+Version:	1.6.33
+Release:	%mkrel 1
+License:	LGPLv2+
 Group:		Development/C++
 URL:		http://www.fox-toolkit.org
-Source: 	http://www.fox-toolkit.org/ftp/%{oname}-%{version}.tar.bz2
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
+Source:		http://www.fox-toolkit.org/ftp/%{oname}-%{version}.tar.bz2
 BuildRequires:	libmesaglu-devel
-BuildRequires:  libcups-devel
-BuildRequires:  libbzip2-devel
+BuildRequires:	libcups-devel
+BuildRequires:	libbzip2-devel
+BuildRequires:	libxft-devel
+BuildRequires:	libxcursor-devel
+BuildRequires:	libxrandr-devel
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 FOX is a C++-Based Library for Graphical User Interface Development
@@ -44,10 +45,10 @@ extension beyond the built-in widgets by application writers.
 %package -n %{libname}-devel
 Summary:	FOX header files
 Group:		Development/C++
-Requires:	%{libname} = %{version}
-Provides:	libfox-devel = %version-%release
-Provides:	fox1.6-devel = %version-%release
-Provides:	libfox1.6-devel = %version-%release
+Requires:	%{libname} = %{version}-%{release}
+Provides:	libfox-devel = %{version}-%{release}
+Provides:	fox1.6-devel = %{version}-%{release}
+Provides:	libfox1.6-devel = %{version}-%{release}
 Conflicts:	fox1.4-devel
 Conflicts:	fox1.7-devel
 
@@ -63,21 +64,29 @@ This package contains the necessary files to develop applications
 with FOX.
 
 %prep
-rm -rf $RPM_BUILD_ROOT
-
-%setup -q -n %oname-%version
+%setup -q -n %{oname}-%{version}
 
 %build
+%define _disable_ld_no_undefined 1
+%configure2_5x \
+	--with-opengl=yes \
+	--enable-cups \
+	--with-xft \
+	--with-xcursor \
+	--with-xrandr \
+	--with-xim \
+	--with-shape \
+	--with-xshm \
+	--enable-release
 
-%configure2_5x --with-opengl=mesa --enable-cups
-
-make GL_LIBS="-lGL -lGLU"
+make
 
 %install
-rm -rf $RPM_BUILD_ROOT installed-docs
+rm -rf %{buildroot} installed-docs
 %makeinstall_std
-mv %buildroot%_datadir/doc/fox-1.6/* installed-docs
-%multiarch_binaries %buildroot%_bindir/fox-config
+
+mv %{buildroot}%{_datadir}/doc/fox-1.6/* installed-docs
+%multiarch_binaries %{buildroot}%{_bindir}/fox-config
 
 rm -rf %buildroot%_prefix/fox %buildroot%_bindir/Adie.stx \
        %buildroot%_bindir/PathFinder %buildroot%_bindir/adie \
@@ -90,7 +99,7 @@ rm -rf %buildroot%_prefix/fox %buildroot%_bindir/Adie.stx \
 %postun -n %{libname} -p /sbin/ldconfig
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %files -n %{libname}
 %defattr(-,root,root)
@@ -99,7 +108,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n %{libname}-devel
 %defattr(-,root,root)
-%doc doc ADDITIONS INSTALL TRACING
+%doc doc ADDITIONS TRACING
 %doc installed-docs
 %doc %{_mandir}/man1/reswrap*
 %{_bindir}/reswrap
@@ -111,5 +120,3 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.so
 %{_libdir}/*.a
 %attr(644,root,root) %{_libdir}/*.la
-
-
