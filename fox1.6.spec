@@ -94,9 +94,13 @@ rm -rf %buildroot%_prefix/fox %buildroot%_bindir/Adie.stx \
        %buildroot%_mandir/man1/PathFinder* %buildroot%_mandir/man1/adie* \
        %buildroot%_mandir/man1/calculator* %buildroot%_mandir/man1/shutterbug*
 
+%if %mdkversion < 200900
 %post -n %{libname} -p /sbin/ldconfig
+%endif
 
+%if %mdkversion < 200900
 %postun -n %{libname} -p /sbin/ldconfig
+%endif
 
 %clean
 rm -rf %{buildroot}
