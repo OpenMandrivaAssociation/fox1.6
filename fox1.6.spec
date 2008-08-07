@@ -2,14 +2,14 @@
 %define oname fox
 %define name %{oname}%{major}
 %define version 1.6.33
-%define release %mkrel 1
+%define release %mkrel 2
 
 %define libname %mklibname %{oname} %{major}
 
 Summary:	The FOX C++ GUI Toolkit
 Name:		%{name}
 Version:	1.6.33
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	LGPLv2+
 Group:		Development/C++
 URL:		http://www.fox-toolkit.org
