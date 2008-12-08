@@ -2,7 +2,7 @@
 %define oname fox
 %define name %{oname}%{major}
 %define version 1.6.34
-%define release %mkrel 1
+%define release %mkrel 2
 
 %define libname %mklibname %{oname} %{major}
 
@@ -77,6 +77,7 @@ with FOX.
 	--with-xim \
 	--with-shape \
 	--with-xshm \
+	--enable-threadsafe \
 	--enable-release
 
 make
