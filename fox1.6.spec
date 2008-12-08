@@ -1,8 +1,8 @@
 %define major 1.6
 %define oname fox
 %define name %{oname}%{major}
-%define version 1.6.33
-%define release %mkrel 2
+%define version 1.6.34
+%define release %mkrel 1
 
 %define libname %mklibname %{oname} %{major}
 
