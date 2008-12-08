@@ -8,12 +8,12 @@
 
 Summary:	The FOX C++ GUI Toolkit
 Name:		%{name}
-Version:	1.6.33
-Release:	%mkrel 2
+Version:	%version
+Release:	%release
 License:	LGPLv2+
 Group:		Development/C++
 URL:		http://www.fox-toolkit.org
-Source:		http://www.fox-toolkit.org/ftp/%{oname}-%{version}.tar.bz2
+Source:		http://www.fox-toolkit.org/ftp/%{oname}-%{version}.tar.gz
 BuildRequires:	libmesaglu-devel
 BuildRequires:	libcups-devel
 BuildRequires:	libbzip2-devel
