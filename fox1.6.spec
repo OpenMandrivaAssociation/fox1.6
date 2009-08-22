@@ -1,5 +1,5 @@
 %define oname fox
-%define name %{oname}%{major}
+%define name %{oname}1.6
 %define version 1.6.36
 %define release %mkrel 2
 
