@@ -1,10 +1,10 @@
-%define major 1.6
 %define oname fox
 %define name %{oname}%{major}
 %define version 1.6.36
-%define release %mkrel 1
+%define release %mkrel 2
 
-%define libname %mklibname %{oname} %{major}
+%define libname %mklibname %{oname} 1.6 0
+%define develname %mklibname %{name} -d
 
 Summary:	The FOX C++ GUI Toolkit
 Name:		%{name}
@@ -15,6 +15,7 @@ Group:		Development/C++
 URL:		http://www.fox-toolkit.org
 Source:		http://www.fox-toolkit.org/ftp/%{oname}-%{version}.tar.gz
 Patch0:		fox-1.6.36-fix-str-fmt.patch
+Patch1:		fox-1.6.36-fix-linkage.patch
 BuildRequires:	libmesaglu-devel
 BuildRequires:	libcups-devel
 BuildRequires:	libbzip2-devel
@@ -34,6 +35,7 @@ extension beyond the built-in widgets by application writers.
 %package -n %{libname}
 Summary:	The FOX C++ GUI Toolkit - Libraries
 Group:		System/Libraries
+Obsoletes:	%{_lib}fox1.6 < 1.6.36-2
 
 %description -n %{libname}
 FOX is a C++-Based Library for Graphical User Interface Development
@@ -43,17 +45,16 @@ idle processing, automatic GUI updating, as well as OpenGL/Mesa for
 3D graphics.  Subclassing of basic FOX widgets allows for easy
 extension beyond the built-in widgets by application writers.
 
-%package -n %{libname}-devel
+%package -n %{develname}
 Summary:	FOX header files
 Group:		Development/C++
 Requires:	%{libname} = %{version}-%{release}
-Provides:	libfox-devel = %{version}-%{release}
 Provides:	fox1.6-devel = %{version}-%{release}
 Provides:	libfox1.6-devel = %{version}-%{release}
 Conflicts:	fox1.4-devel
 Conflicts:	fox1.7-devel
 
-%description -n %{libname}-devel
+%description -n %{develname}
 FOX is a C++-Based Library for Graphical User Interface Development
 FOX supports modern GUI features, such as Drag-and-Drop, Tooltips, Tab
 Books, Tree Lists, Icons, Multiple-Document Interfaces (MDI), timers,
@@ -67,9 +68,9 @@ with FOX.
 %prep
 %setup -q -n %{oname}-%{version}
 %patch0 -p0
+%patch1 -p0
 
 %build
-%define _disable_ld_no_undefined 1
 %configure2_5x \
 	--with-opengl=yes \
 	--enable-cups \
@@ -110,9 +111,9 @@ rm -rf %{buildroot}
 %files -n %{libname}
 %defattr(-,root,root)
 %doc AUTHORS LICENSE README
-%{_libdir}/*.so.*
+%{_libdir}/*-1.6.so.0*
 
-%files -n %{libname}-devel
+%files -n %{develname}
 %defattr(-,root,root)
 %doc doc ADDITIONS TRACING
 %doc installed-docs
