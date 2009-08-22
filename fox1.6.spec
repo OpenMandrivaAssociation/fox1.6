@@ -14,6 +14,7 @@ License:	LGPLv2+
 Group:		Development/C++
 URL:		http://www.fox-toolkit.org
 Source:		http://www.fox-toolkit.org/ftp/%{oname}-%{version}.tar.gz
+Patch0:		fox-1.6.36-fix-str-fmt.patch
 BuildRequires:	libmesaglu-devel
 BuildRequires:	libcups-devel
 BuildRequires:	libbzip2-devel
@@ -65,6 +66,7 @@ with FOX.
 
 %prep
 %setup -q -n %{oname}-%{version}
+%patch0 -p0
 
 %build
 %define _disable_ld_no_undefined 1
@@ -79,7 +81,7 @@ with FOX.
 	--enable-threadsafe \
 	--enable-release
 
-make
+%make
 
 %install
 rm -rf %{buildroot} installed-docs
