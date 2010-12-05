@@ -1,7 +1,7 @@
 %define oname fox
 %define name %{oname}1.6
 %define version 1.6.37
-%define release %mkrel 2
+%define release %mkrel 3
 
 %define libname %mklibname %{oname} 1.6 0
 %define develname %mklibname %{name} -d
