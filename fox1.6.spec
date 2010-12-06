@@ -16,6 +16,7 @@ URL:		http://www.fox-toolkit.org
 Source:		http://www.fox-toolkit.org/ftp/%{oname}-%{version}.tar.gz
 Patch0:		fox-1.6.36-fix-str-fmt.patch
 Patch1:		fox-1.6.36-fix-linkage.patch
+Patch2:		fox-1.6.37-fix-install.patch
 BuildRequires:	libmesaglu-devel
 BuildRequires:	libcups-devel
 BuildRequires:	libbzip2-devel
@@ -69,8 +70,10 @@ with FOX.
 %setup -q -n %{oname}-%{version}
 %patch0 -p0
 %patch1 -p0
+%patch2 -p0
 
 %build
+autoreconf -fi
 %configure2_5x \
 	--with-opengl=yes \
 	--enable-cups \
