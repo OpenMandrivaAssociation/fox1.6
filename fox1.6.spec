@@ -1,7 +1,7 @@
 %define oname fox
 %define name %{oname}1.6
-%define version 1.6.37
-%define release %mkrel 3
+%define version 1.6.43
+%define release %mkrel 1
 
 %define libname %mklibname %{oname} 1.6 0
 %define develname %mklibname %{name} -d
@@ -15,8 +15,7 @@ Group:		Development/C++
 URL:		http://www.fox-toolkit.org
 Source:		http://www.fox-toolkit.org/ftp/%{oname}-%{version}.tar.gz
 Patch0:		fox-1.6.36-fix-str-fmt.patch
-Patch1:		fox-1.6.36-fix-linkage.patch
-Patch2:		fox-1.6.37-fix-install.patch
+Patch1:		fox-1.6.43-fix-linkage.patch
 BuildRequires:	libmesaglu-devel
 BuildRequires:	libcups-devel
 BuildRequires:	libbzip2-devel
@@ -70,19 +69,15 @@ with FOX.
 %setup -q -n %{oname}-%{version}
 %patch0 -p0
 %patch1 -p0
-%patch2 -p0
 
 %build
-autoreconf -fi
 %configure2_5x \
 	--with-opengl=yes \
-	--enable-cups \
 	--with-xft \
 	--with-xcursor \
 	--with-xrandr \
 	--with-shape \
 	--with-xshm \
-	--enable-threadsafe \
 	--enable-release
 
 %make
