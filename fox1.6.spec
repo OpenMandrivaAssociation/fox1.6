@@ -1,28 +1,26 @@
 %define oname fox
-%define name %{oname}1.6
-%define version 1.6.44
-%define release %mkrel 1
 
 %define libname %mklibname %{oname} 1.6 0
 %define develname %mklibname %{name} -d
 
-Summary:	The FOX C++ GUI Toolkit
-Name:		%{name}
-Version:	%version
-Release:	%release
-License:	LGPLv2+
-Group:		Development/C++
-URL:		http://www.fox-toolkit.org
-Source:		http://www.fox-toolkit.org/ftp/%{oname}-%{version}.tar.gz
-Patch0:		fox-1.6.36-fix-str-fmt.patch
-Patch1:		fox-1.6.43-fix-linkage.patch
-BuildRequires:	libmesaglu-devel
-BuildRequires:	libcups-devel
-BuildRequires:	libbzip2-devel
-BuildRequires:	libxft-devel
-BuildRequires:	libxcursor-devel
-BuildRequires:	libxrandr-devel
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
+Summary:    The FOX C++ GUI Toolkit
+Name:       fox1.6
+Version:    1.6.44
+Release:    2
+License:    LGPLv2+
+Group:      Development/C++
+URL:        http://www.fox-toolkit.org
+Source:     http://www.fox-toolkit.org/ftp/%{oname}-%{version}.tar.gz
+Patch0:     fox-1.6.36-fix-str-fmt.patch
+Patch1:     fox-1.6.43-fix-linkage.patch
+BuildRequires:  libmesaglu-devel
+BuildRequires:  cups-devel
+BuildRequires:  bzip2-devel
+BuildRequires:  libxft-devel
+BuildRequires:  libxcursor-devel
+BuildRequires:  libxrandr-devel
+BuildRequires:  fontconfig-devel
+BuildRoot:  %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 FOX is a C++-Based Library for Graphical User Interface Development
@@ -33,9 +31,9 @@ idle processing, automatic GUI updating, as well as OpenGL/Mesa for
 extension beyond the built-in widgets by application writers.
 
 %package -n %{libname}
-Summary:	The FOX C++ GUI Toolkit - Libraries
-Group:		System/Libraries
-Obsoletes:	%{_lib}fox1.6 < 1.6.36-2
+Summary:    The FOX C++ GUI Toolkit - Libraries
+Group:      System/Libraries
+Obsoletes:  %{_lib}fox1.6 < 1.6.36-2
 
 %description -n %{libname}
 FOX is a C++-Based Library for Graphical User Interface Development
@@ -46,13 +44,13 @@ idle processing, automatic GUI updating, as well as OpenGL/Mesa for
 extension beyond the built-in widgets by application writers.
 
 %package -n %{develname}
-Summary:	FOX header files
-Group:		Development/C++
-Requires:	%{libname} = %{version}-%{release}
-Provides:	fox1.6-devel = %{version}-%{release}
-Provides:	libfox1.6-devel = %{version}-%{release}
-Conflicts:	fox1.4-devel
-Conflicts:	fox1.7-devel
+Summary:    FOX header files
+Group:      Development/C++
+Requires:   %{libname} = %{version}-%{release}
+Provides:   fox1.6-devel = %{version}-%{release}
+Provides:   libfox1.6-devel = %{version}-%{release}
+Conflicts:  fox1.4-devel
+Conflicts:  fox1.7-devel
 
 %description -n %{develname}
 FOX is a C++-Based Library for Graphical User Interface Development
@@ -71,14 +69,15 @@ with FOX.
 %patch1 -p0
 
 %build
-%configure2_5x \
-	--with-opengl=yes \
-	--with-xft \
-	--with-xcursor \
-	--with-xrandr \
-	--with-shape \
-	--with-xshm \
-	--enable-release
+LDFLAGS="-lfontconfig" %configure2_5x \
+    --with-opengl=yes \
+    --with-xft \
+    --with-xcursor \
+    --with-xrandr \
+    --with-shape \
+    --with-xshm \
+    --disable-static \
+    --enable-release
 
 %make
 
@@ -95,13 +94,7 @@ rm -rf %buildroot%_prefix/fox %buildroot%_bindir/Adie.stx \
        %buildroot%_mandir/man1/PathFinder* %buildroot%_mandir/man1/adie* \
        %buildroot%_mandir/man1/calculator* %buildroot%_mandir/man1/shutterbug*
 
-%if %mdkversion < 200900
-%post -n %{libname} -p /sbin/ldconfig
-%endif
-
-%if %mdkversion < 200900
-%postun -n %{libname} -p /sbin/ldconfig
-%endif
+rm -rf %buildroot/%{_libdir}/*.la
 
 %clean
 rm -rf %{buildroot}
@@ -123,5 +116,3 @@ rm -rf %{buildroot}
 %{_includedir}/fox-1.6/*
 %{_libdir}/pkgconfig/fox.pc
 %{_libdir}/*.so
-%{_libdir}/*.a
-%attr(644,root,root) %{_libdir}/*.la
