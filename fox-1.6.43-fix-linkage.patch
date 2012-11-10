@@ -1,0 +1,23 @@
+--- chart/Makefile.am~	2009-03-13 01:45:10.000000000 -0400
++++ chart/Makefile.am	2009-08-22 04:18:02.000000000 -0400
+@@ -8,7 +8,7 @@
+ 
+ lib_LTLIBRARIES = libCHART-1.6.la
+ 
+-libCHART_1_6_la_LIBADD  = $(X_LIBS) $(X_BASE_LIBS) $(X_EXTRA_LIBS)
++libCHART_1_6_la_LIBADD  = $(X_LIBS) $(X_BASE_LIBS) $(X_EXTRA_LIBS) $(top_builddir)/src/libFOX-1.6.la
+ 
+ libCHART_1_6_la_LDFLAGS = \
+         -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE)    \
+ 
+--- chart/Makefile.in.link	2011-05-09 04:30:42.000000000 +0200
++++ chart/Makefile.in	2011-05-09 04:31:25.000000000 +0200
+@@ -250,7 +250,7 @@
+ SUFFIXES = .gif .bmp
+ LDADD = libCHART-1.6.la $(top_builddir)/src/libFOX-1.6.la -lm
+ lib_LTLIBRARIES = libCHART-1.6.la
+-libCHART_1_6_la_LIBADD = $(X_LIBS) $(X_BASE_LIBS) $(X_EXTRA_LIBS)
++libCHART_1_6_la_LIBADD = $(X_LIBS) $(X_BASE_LIBS) $(X_EXTRA_LIBS) $(top_builddir)/src/libFOX-1.6.la
+ libCHART_1_6_la_LDFLAGS = \
+         -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE)    \
+ 	-export-dynamic
