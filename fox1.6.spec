@@ -2,6 +2,7 @@
 
 %define libname %mklibname %{oname} 1.6 0
 %define develname %mklibname %{name} -d
+%define debug_package %{nil}
 
 Summary:	The FOX C++ GUI Toolkit
 Name:		fox1.6
