@@ -13,7 +13,7 @@ Group:		Development/C++
 URL:		http://www.fox-toolkit.org
 Source:		http://www.fox-toolkit.org/ftp/%{oname}-%{version}.tar.gz
 Patch0:		fox-1.6.36-fix-str-fmt.patch
-Patch1:		fox-1.6.43-fix-linkage.patch
+#Patch1:		fox-1.6.43-fix-linkage.patch
 BuildRequires:	bzip2-devel
 BuildRequires:	cups-devel
 BuildRequires:	pkgconfig(fontconfig)
@@ -65,7 +65,7 @@ with FOX.
 %prep
 %setup -q -n %{oname}-%{version}
 %patch0 -p0
-%patch1 -p0
+#patch1 -p0
 
 %build
 LDFLAGS="-lfontconfig" %configure2_5x \
