@@ -1,3 +1,4 @@
+%global optflags %{optflags} -Wno-register
 %define oname fox
 
 %define libname %mklibname %{oname} 1.6 0
