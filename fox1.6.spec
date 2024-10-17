@@ -10,7 +10,7 @@ Version:	1.6.47
 Release:	2
 License:	LGPLv2+
 Group:		Development/C++
-URL:		http://www.fox-toolkit.org
+URL:		https://www.fox-toolkit.org
 Source:		http://www.fox-toolkit.org/ftp/%{oname}-%{version}.tar.gz
 Patch0:		fox-1.6.36-fix-str-fmt.patch
 Patch1:		fox-1.6.43-fix-linkage.patch
