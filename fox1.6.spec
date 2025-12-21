@@ -14,6 +14,7 @@ URL:		https://www.fox-toolkit.org
 Source:		http://www.fox-toolkit.org/ftp/%{oname}-%{version}.tar.gz
 Patch0:		fox-1.6.36-fix-str-fmt.patch
 Patch1:		fox-1.6.43-fix-linkage.patch
+BuildRequires:	make
 BuildRequires:	bzip2-devel
 BuildRequires:	cups-devel
 BuildRequires:	pkgconfig(fontconfig)
